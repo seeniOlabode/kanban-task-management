@@ -125,9 +125,6 @@ export default {
         this.CLOSE_MOBILE_NAV();
       }
     },
-    clicked() {
-      console.log(this.CLOSE_DESKTOP_NAV, this.OPEN_DESKTOP_NAV);
-    },
   },
 };
 </script>
