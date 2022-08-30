@@ -16,7 +16,7 @@
       v-if="displayedBoard ? displayedBoard.columns.length <= 0 : false"
       class="h-full w-full flex items-center justify-center flex-wrap content-center gap-6"
     >
-      <h3 class="text-center dark-mode w-2/3">
+      <h3 :class="['text-center', 'w-2/3', { 'dark-mode': darkmode }]">
         This board is empty. Create a new column to get started.
       </h3>
       <div class="w-2/3 flex justify-center">

@@ -42,7 +42,8 @@ export default {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-    await this.FETCH_TASKS();
+    this.$store.dispatch("fetchDefaultTheme");
+    this.FETCH_TASKS();
   },
 
   beforeUnmount() {
