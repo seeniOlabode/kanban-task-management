@@ -31,6 +31,7 @@ export default {
       required: true,
     },
   },
+  emits: ["close-info"],
   computed: {
     ...mapState(["darkmode"]),
     localDisplayModal() {
@@ -40,7 +41,7 @@ export default {
   methods: {
     handleClick($event) {
       if ($event.target.className.includes("modal-container")) {
-        this.localDisplayModal = false;
+        this.$emit("close-info");
       }
     },
   },

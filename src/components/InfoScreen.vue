@@ -1,5 +1,5 @@
 <template>
-  <modal :display-modal="modalOpen">
+  <modal :display-modal="modalOpen" @close-info="closeModal()">
     <div>
       <div class="flex justify-between items-center">
         <h3 :class="['text-2xl', 'font-bold', { 'dark-mode': darkmode }]">
