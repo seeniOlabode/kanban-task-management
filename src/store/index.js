@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
-import getTasks from "@/api/getTasks";
+// import getTasks from "@/api/getTasks";
 import { Board } from "@/taskmanagement/Boards";
+import tasksJson from "@/data.json";
 
 export const OPEN_MOBILE_NAV = "OPEN_MOBILE_NAV";
 export const CLOSE_MOBILE_NAV = "CLOSE_MOBILE_NAV";
@@ -79,7 +80,8 @@ export const mutations = {
 
 export const actions = {
   async [FETCH_TASKS](context) {
-    const tasksObject = await getTasks();
+    // const tasksObject = await getTasks();
+    const tasksObject = tasksJson.boards;
     context.commit(RECEIVE_TASKS, tasksObject);
   },
   [ADD_BOARD](context) {

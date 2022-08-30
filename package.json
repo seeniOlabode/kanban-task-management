@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "backend": "json-server --watch data.json",
+    "backend": "json-server --watch src/data.json",
     "test:watch": "vue-clic-service test:watch"
   },
   "dependencies": {
