@@ -56,10 +56,10 @@
           ]"
         >
           <button><img src="@/assets/icon-light-theme.svg" alt="" /></button>
-          <button v-show="darkmode === true" @click="DARKMODE_OFF">
+          <button v-show="darkmode === true" @click="darkmodeOff()">
             <img src="@/assets/icon-toggle-on.svg" alt="" />
           </button>
-          <button v-show="darkmode === false" @click="DARKMODE_ON">
+          <button v-show="darkmode === false" @click="darkmodeOn">
             <img src="@/assets/icon-toggle-off.svg" alt="" />
           </button>
           <button><img src="@/assets/icon-dark-theme.svg" alt="" /></button>
@@ -81,13 +81,7 @@
 
 <script>
 import { mapMutations, mapState } from "vuex";
-import {
-  CLOSE_MOBILE_NAV,
-  DARKMODE_ON,
-  DARKMODE_OFF,
-  CLOSE_DESKTOP_NAV,
-  OPEN_DESKTOP_NAV,
-} from "@/store";
+import { CLOSE_MOBILE_NAV, CLOSE_DESKTOP_NAV, OPEN_DESKTOP_NAV } from "@/store";
 
 import BoardsNavigation from "./BoardsNavigation.vue";
 
@@ -115,8 +109,7 @@ export default {
   methods: {
     ...mapMutations([
       CLOSE_MOBILE_NAV,
-      DARKMODE_ON,
-      DARKMODE_OFF,
+      "setDarkMode",
       CLOSE_DESKTOP_NAV,
       OPEN_DESKTOP_NAV,
     ]),
@@ -124,6 +117,12 @@ export default {
       if ($event.target.tagName === "NAV") {
         this.CLOSE_MOBILE_NAV();
       }
+    },
+    darkmodeOn() {
+      this.$store.commit("setDarkMode", { scheme: "dark", override: true });
+    },
+    darkmodeOff() {
+      this.$store.commit("setDarkMode", { scheme: "light", override: true });
     },
   },
 };

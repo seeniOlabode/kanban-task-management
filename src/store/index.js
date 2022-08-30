@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 // import getTasks from "@/api/getTasks";
 import { Board } from "@/taskmanagement/Boards";
 import tasksJson from "@/data.json";
+import getDefaultColorScheme from "@/helper/getDefaultTheme";
 
 export const OPEN_MOBILE_NAV = "OPEN_MOBILE_NAV";
 export const CLOSE_MOBILE_NAV = "CLOSE_MOBILE_NAV";
@@ -34,10 +35,21 @@ export const state = () => {
     windowWidth: 0,
     BoardsList: [],
     modalOpen: false,
+    infoScreenDisplayed: false,
   };
 };
 
 export const mutations = {
+  setInfoScreen(state) {
+    let displayScreen = JSON.parse(sessionStorage.getItem("info-displayed"));
+    if (!displayScreen) {
+      state.infoScreenDisplayed = true;
+      sessionStorage.setItem("info-displayed", true);
+    } else {
+      state.infoScreenDisplayed = false;
+      sessionStorage.setItem("info-displayed", true);
+    }
+  },
   [OPEN_MOBILE_NAV](state) {
     state.nav.mobileNavIsOpen = true;
   },
@@ -52,9 +64,17 @@ export const mutations = {
   },
   [DARKMODE_OFF](state) {
     state.darkmode = false;
+    localStorage.setItem("kanban-theme", false);
   },
   [DARKMODE_ON](state) {
     state.darkmode = true;
+    localStorage.setItem("kanban-theme", true);
+  },
+  setDarkMode(state, payload) {
+    state.darkmode = payload.scheme === "dark" ? true : false;
+    if (payload.override) {
+      localStorage.setItem("kanban-theme", payload.scheme);
+    }
   },
   [OPEN_DESKTOP_NAV](state) {
     state.nav.desktopNavIsOpen = true;
@@ -79,7 +99,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async [FETCH_TASKS](context) {
+  [FETCH_TASKS](context) {
     // const tasksObject = await getTasks();
     const tasksObject = tasksJson.boards;
     context.commit(RECEIVE_TASKS, tasksObject);
@@ -87,6 +107,18 @@ export const actions = {
   [ADD_BOARD](context) {
     const newBoard = new Board("Untitled");
     context.commit(RECEIVE_BOARD, newBoard);
+  },
+  fetchDefaultTheme({ commit }) {
+    let savedScheme = localStorage.getItem("kanban-theme");
+    let schemeObject = {};
+    if (savedScheme) {
+      schemeObject.scheme = savedScheme;
+      schemeObject.override = false;
+    } else {
+      schemeObject.scheme = getDefaultColorScheme();
+      schemeObject.override = false;
+    }
+    commit("setDarkMode", schemeObject);
   },
 };
 
