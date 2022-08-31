@@ -15,7 +15,6 @@
       'justify-center',
       'mobile',
       'sm:rounded-none',
-      'sm:pt-28',
       'sm:absolute',
       'sm:h-screen',
       'sm:top-0',
@@ -142,6 +141,9 @@ nav.light-mode {
 }
 
 @media (min-width: 640px) {
+  nav {
+    padding-top: 85px;
+  }
   nav.mobile.dark-mode {
     @apply bg-kanban-dark-grey border-r border-solid border-kanban-lines-dark;
   }
