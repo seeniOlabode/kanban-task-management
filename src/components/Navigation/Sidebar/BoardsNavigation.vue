@@ -27,7 +27,16 @@
             { 'dark-mode': darkmode, 'light-mode': !darkmode },
           ]"
         >
-          <img src="@/assets/icon-board.svg" alt="" />
+          <img
+            :class="{ hidden: board.name === activeBoard ? true : false }"
+            src="@/assets/icon-board.svg"
+            alt=""
+          />
+          <img
+            :class="{ hidden: board.name === activeBoard ? false : true }"
+            src="@/assets/icon-board-white.svg"
+            alt=""
+          />
           <span class="ml-3">{{ board.name }}</span>
         </li>
       </router-link>

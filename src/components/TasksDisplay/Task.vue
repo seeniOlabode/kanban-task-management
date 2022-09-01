@@ -15,7 +15,7 @@
         { 'dark-mode': darkmode, 'light-mode': !darkmode },
       ]"
     >
-      <h6>{{ singleTaskDetails.title }}</h6>
+      <h6 class="font-bold">{{ singleTaskDetails.title }}</h6>
       <p class="text-sm text-kanban-medium-grey mt-3">
         {{ completedSubtasks }}
       </p>

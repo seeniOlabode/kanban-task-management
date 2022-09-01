@@ -1,5 +1,15 @@
 <template>
-  <div id="sidebar" class="sm:static sm:w-72">
+  <div
+    id="sidebar"
+    :class="[
+      'sm:static',
+      'sm:w-72',
+      { 'sm:h-full': !nav.desktopNavIsOpen },
+      { 'border-r': !nav.desktopNavIsOpen },
+      { 'border-r-kanban-lines-dark': !nav.desktopNavIsOpen && darkmode },
+      { 'border-r-kanban-lines-light': !nav.desktopNavIsOpen && !darkmode },
+    ]"
+  >
     <div class="sm:ml-7 z-50 sm:relative sm:w-72">
       <div
         id="logo"
