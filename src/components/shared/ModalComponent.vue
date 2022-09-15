@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="displayValue"
     class="absolute modal-container top-0 left-0 flex items-center justify-center bg-kanban-black bg-opacity-50 w-screen h-screen px-5 z-50"
     @click="handleClick($event)"
   >
@@ -33,9 +34,6 @@ export default {
   emits: ["CloseModal"],
   computed: {
     ...mapState(["darkmode"]),
-  },
-  beforeUnmount() {
-    this.$router.push(`/boards/${this.displayedBoard}`);
   },
   methods: {
     handleClick($event) {

@@ -77,6 +77,11 @@ export const mutations = {
     if (payload.override) {
       localStorage.setItem("kanban-theme", payload.scheme);
     }
+    /////////
+
+    document.getElementsByTagName("HTML")[0].classList.remove("light");
+    document.getElementsByTagName("HTML")[0].classList.remove("dark");
+    document.getElementsByTagName("HTML")[0].classList.add(payload.scheme);
   },
   [OPEN_DESKTOP_NAV](state) {
     state.nav.desktopNavIsOpen = true;

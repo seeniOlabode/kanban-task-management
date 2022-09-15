@@ -28,6 +28,7 @@
         </li>
         <button
           class="text-kanban-red text-sm hover:text-kanban-red-hover hover:cursor-pointer"
+          @click="deleteDisplayedBoard()"
         >
           Delete Board
         </button>
@@ -50,7 +51,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["darkmode"]),
+    // ...mapState(["darkmode"]),
+    ...mapState({
+      darkmode: (state) => state.darkmode,
+      displayedBoard: (state) =>
+        Boolean(state.TasksModule.displayedBoard.tasks),
+    }),
   },
   methods: {
     toggleSettings() {
@@ -64,6 +70,10 @@ export default {
           this.settingsOpen = false;
         }
       }, 1500);
+    },
+    deleteDisplayedBoard() {
+      this.settingsOpen = false;
+      this.$store.dispatch("TasksModule/deleteBoard");
     },
   },
 };

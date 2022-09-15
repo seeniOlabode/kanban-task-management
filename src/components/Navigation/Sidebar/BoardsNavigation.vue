@@ -5,7 +5,7 @@
     >
       All Boards ( {{ tasks.length }} )
     </h3>
-    <ul>
+    <ul class="max-h-44 sm:max-h-80 overflow-scroll">
       <button
         v-for="board in boards"
         :key="board.id"
@@ -40,17 +40,16 @@
           <span class="ml-3">{{ board.name }}</span>
         </li>
       </button>
-      <button
-        class="flex pl-6 py-4 items-center mr-6 add-task pr-6"
-        disabled
-        @click="ADD_BOARD()"
-      >
-        <img src="@/assets/purple-board.svg" alt="" />
-        <span class="ml-3 text-kanban-main-purple font-extrabold"
-          >Create New Board</span
-        >
-      </button>
     </ul>
+    <button
+      class="flex pl-6 py-4 items-center mr-6 add-task pr-6"
+      @click="openAddBoard()"
+    >
+      <img src="@/assets/purple-board.svg" alt="" />
+      <span class="ml-3 text-kanban-main-purple font-extrabold"
+        >Create New Board</span
+      >
+    </button>
   </div>
 </template>
 
@@ -77,6 +76,10 @@ export default {
     ...mapActions([ADD_BOARD]),
     handleNavClick(input) {
       this.$store.commit("TasksModule/setDisplayedBoard", input);
+      this.CLOSE_MOBILE_NAV();
+    },
+    openAddBoard() {
+      this.$store.dispatch("TasksModule/turnFunctionalityOn", "addBoard");
       this.CLOSE_MOBILE_NAV();
     },
   },

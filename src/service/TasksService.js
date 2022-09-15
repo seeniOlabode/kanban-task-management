@@ -13,10 +13,13 @@ export default {
   postBoard(payload) {
     return apiClient.post("api/boards", payload);
   },
+  deleteBoard(payload) {
+    return apiClient.delete("api/boards/" + payload);
+  },
   getTasks(payload) {
     return apiClient.get("api/tasks/board/" + payload.boardid, payload);
   },
-  postTasks(payload) {
+  postTask(payload) {
     return apiClient.post("api/tasks/add", payload);
   },
   addSubTask(payload) {

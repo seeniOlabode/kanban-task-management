@@ -12,7 +12,7 @@
       },
     ]"
   >
-    <div
+    <!-- <div
       v-if="displayedBoard ? displayedBoard.tasks.length <= 0 : false"
       class="h-full w-full flex items-center justify-center flex-wrap content-center gap-6"
     >
@@ -22,7 +22,7 @@
       <div class="w-2/3 flex justify-center">
         <add-button />
       </div>
-    </div>
+    </div> -->
 
     <div
       v-if="defaultDisplay"
@@ -53,20 +53,23 @@
     </div>
     <view-tasks v-if="displayViewTasks" :displayed-board="displayedBoardName" />
     <add-board-vue />
+    <add-task-vue />
   </main>
 </template>
 
 <script>
-import AddButton from "@/components/shared/AddButton.vue";
+// import AddButton from "@/components/shared/AddButton.vue";
 import ColumnComponent from "./ColumnComponent.vue";
 import ViewTasks from "../UserFunctionality/ViewTasks.vue";
 import { mapState } from "vuex";
 
 import AddBoardVue from "../UserFunctionality/AddBoard.vue";
+import AddTaskVue from "../UserFunctionality/AddTask.vue";
 
 export default {
   name: "TaskComponent",
-  components: { AddButton, ColumnComponent, ViewTasks, AddBoardVue },
+  // components: { AddButton, ColumnComponent, ViewTasks, AddBoardVue },
+  components: { ColumnComponent, ViewTasks, AddBoardVue, AddTaskVue },
   data() {
     return {
       defaultDisplay: false,

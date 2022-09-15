@@ -22,7 +22,9 @@
       </button>
     </div>
     <div class="flex items-center">
-      <add-button />
+      <add-button
+        @click="$store.dispatch('TasksModule/turnFunctionalityOn', 'addTask')"
+      />
       <sub-header-settings />
     </div>
   </div>
@@ -57,7 +59,7 @@ export default {
       if (this.boardsFetched && this.displayedBoard.id) {
         return this.displayedBoard.name;
       } else {
-        return "Pick a Board to get started";
+        return "Pick a Board";
       }
     },
   },

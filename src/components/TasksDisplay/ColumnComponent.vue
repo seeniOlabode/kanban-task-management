@@ -2,7 +2,10 @@
   <div class="w-80 mr-6">
     <div class="flex flex-nowrap items-center mb-6">
       <div :class="['w-4', 'aspect-square', 'rounded-full', columnColor]"></div>
-      <h4 :class="['ml-3', { 'dark-mode': darkmode, 'light-mode': !darkmode }]">
+      <h4
+        class="w-80"
+        :class="['ml-3', { 'dark-mode': darkmode, 'light-mode': !darkmode }]"
+      >
         {{ name }} ( {{ columnDetails.length }} )
       </h4>
     </div>

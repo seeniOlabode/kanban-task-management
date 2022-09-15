@@ -4,6 +4,10 @@ export const state = {
   boards: [],
   displayedBoard: { default: true },
   boardsFetched: false,
+  functionality: {
+    addBoard: false,
+    addTask: false,
+  },
 };
 
 export const mutations = {
@@ -11,11 +15,21 @@ export const mutations = {
     state.boards = payload;
   },
   setDisplayedBoard(state, payload) {
+    localStorage.setItem("kanban-last-displayed", payload);
     const displayedJob = state.boards.find((board) => board.id === payload);
     state.displayedBoard = displayedJob;
   },
   setBoardsFetched(state, payload) {
     state.boardsFetched = payload;
+  },
+  turnOffAllFunctions(state) {
+    state.functionality.addBoard = false;
+  },
+  setFunctionalityOn(state, payload) {
+    state.functionality[payload] = true;
+  },
+  setFunctionalityOff(state, payload) {
+    state.functionality[payload] = false;
   },
 };
 
@@ -27,10 +41,46 @@ export const actions = {
     if (response.status === 200) {
       commit("storeBoards", response.data);
       commit("setBoardsFetched", true);
+      let lastBoardId = localStorage.getItem("kanban-last-displayed");
+      let formerBoard = response.data.find((board) => board.id == lastBoardId);
+      if (formerBoard) {
+        commit("setDisplayedBoard", formerBoard);
+      } else {
+        let firstBoard = response.data[0].id;
+        commit("setDisplayedBoard", firstBoard);
+      }
     } else {
       commit("setBoardsFetched", false);
       return "";
     }
+  },
+  async addBoard({ dispatch }, payload) {
+    await TasksService.postBoard(payload);
+    dispatch("fetchTasks");
+  },
+  turnFunctionalityOn({ commit }, payload) {
+    commit("turnOffAllFunctions");
+    commit("setFunctionalityOn", payload);
+  },
+  turnFunctionalityOff({ commit }, payload) {
+    commit("turnOffAllFunctions");
+    commit("setFunctionalityOff", payload);
+  },
+  async deleteBoard({ dispatch, commit, state }) {
+    let deleteBoardId = state.displayedBoard.id;
+    const response = await TasksService.deleteBoard(deleteBoardId);
+    if (response.status === 200) {
+      console.log("Hmmm");
+    }
+    dispatch("fetchTasks");
+    let boardId = state.boards[0].id;
+    commit("setDisplayedBoard", boardId);
+  },
+  async addTask({ dispatch, state }, payload) {
+    payload.boardid = state.displayedBoard.id;
+    console.log(payload);
+    await TasksService.postTask(payload);
+    dispatch("fetchTasks");
   },
 };
 export const namespaced = true;
