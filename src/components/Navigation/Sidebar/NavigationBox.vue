@@ -91,7 +91,13 @@ export default {
   },
   emits: ["closeNav"],
   computed: {
-    ...mapState(["nav", "windowWidth", "darkmode", "tasks"]),
+    // ...mapState(["nav", "windowWidth", "darkmode", "tasks"]),
+    ...mapState({
+      nav: (state) => state.nav,
+      windowWidth: (state) => state.windowWidth,
+      darkmode: (state) => state.darkmode,
+      tasks: (state) => state.TasksModule.boards,
+    }),
     boards() {
       return this.tasks;
     },

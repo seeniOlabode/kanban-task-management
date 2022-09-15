@@ -44,6 +44,7 @@ export default {
     });
     this.$store.dispatch("fetchDefaultTheme");
     this.FETCH_TASKS();
+    this.$store.dispatch("TasksModule/fetchTasks");
   },
 
   beforeUnmount() {

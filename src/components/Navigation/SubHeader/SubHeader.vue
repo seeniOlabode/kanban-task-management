@@ -43,9 +43,22 @@ export default {
     SubHeaderSettings,
   },
   computed: {
-    ...mapState(["nav", "darkmode"]),
+    // ...mapState(["nav", "darkmode"]),
+    ...mapState({
+      nav: (state) => state.nav,
+      darkmode: (state) => state.darkmode,
+      tasks: (state) => state.TasksModule.boards,
+      boardsFetched: (state) => state.TasksModule.boardsFetched,
+      displayedBoardId: (state) => state.TasksModule.displayedBoardId,
+      displayedBoard: (state) => state.TasksModule.displayedBoard,
+    }),
+
     boardHeading() {
-      return this.$route.params.id;
+      if (this.boardsFetched && this.displayedBoard.id) {
+        return this.displayedBoard.name;
+      } else {
+        return "Pick a Board to get started";
+      }
     },
   },
   methods: {

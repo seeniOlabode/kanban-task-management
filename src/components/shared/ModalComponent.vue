@@ -25,11 +25,12 @@ import { mapState } from "vuex";
 export default {
   name: "ModalComponent",
   props: {
-    displayedBoard: {
-      type: String,
+    displayValue: {
+      type: Boolean,
       required: true,
     },
   },
+  emits: ["CloseModal"],
   computed: {
     ...mapState(["darkmode"]),
   },
@@ -39,7 +40,7 @@ export default {
   methods: {
     handleClick($event) {
       if ($event.target.className.includes("modal-container")) {
-        this.$router.push(`/boards/${this.$route.params.id}`);
+        this.$emit("CloseModal", false);
       }
     },
   },

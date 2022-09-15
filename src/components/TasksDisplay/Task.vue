@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'task', query: { column: column, taskId: index } }">
+  <div>
     <li
       :class="[
         'px-4',
@@ -20,14 +20,14 @@
         {{ completedSubtasks }}
       </p>
     </li>
-  </router-link>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
 export default {
-  name: "TaskComponent",
+  name: "SingleTaskComponent",
   props: {
     singleTaskDetails: {
       type: Object,

@@ -4,6 +4,8 @@ import { Board } from "@/taskmanagement/Boards";
 import tasksJson from "@/data.json";
 import getDefaultColorScheme from "@/helper/getDefaultTheme";
 
+import TasksModule from "./TasksModule";
+
 export const OPEN_MOBILE_NAV = "OPEN_MOBILE_NAV";
 export const CLOSE_MOBILE_NAV = "CLOSE_MOBILE_NAV";
 export const OPEN_DESKTOP_NAV = "OPEN_DESKTOP_NAV";
@@ -122,8 +124,11 @@ export const actions = {
   },
 };
 
+export const modules = { TasksModule };
+
 export default createStore({
   state,
   mutations,
   actions,
+  modules,
 });

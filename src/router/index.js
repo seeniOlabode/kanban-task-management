@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import BoardView from "../views/BoardView.vue";
-import SingleTaskView from "../views/SingleTaskView.vue";
+// import SingleTaskView from "../views/SingleTaskView.vue";
 
 const routes = [
   {
@@ -9,10 +9,10 @@ const routes = [
     component: BoardView,
   },
   {
-    path: "/boards/:id",
+    path: "/board",
     name: "BoardView",
     component: BoardView,
-    children: [{ path: "task", name: "task", component: SingleTaskView }],
+    // children: [{ path: "task", name: "task", component: SingleTaskView }],
   },
 ];
 

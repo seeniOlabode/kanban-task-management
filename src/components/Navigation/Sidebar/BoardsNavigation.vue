@@ -6,11 +6,11 @@
       All Boards ( {{ tasks.length }} )
     </h3>
     <ul>
-      <router-link
+      <button
         v-for="board in boards"
-        :key="board.name"
-        :to="{ path: `/boards/${board.name}` }"
-        @click="CLOSE_MOBILE_NAV()"
+        :key="board.id"
+        class="nav-button"
+        @click="handleNavClick(board.id)"
       >
         <li
           :class="[
@@ -23,23 +23,23 @@
             'mr-6',
             'text-kanban-medium-grey',
             'rounded-r-full',
-            { active: board.name === activeBoard },
+            { active: board.id === displayedBoardId },
             { 'dark-mode': darkmode, 'light-mode': !darkmode },
           ]"
         >
           <img
-            :class="{ hidden: board.name === activeBoard ? true : false }"
+            :class="{ hidden: board.name === displayedBoardId ? true : false }"
             src="@/assets/icon-board.svg"
             alt=""
           />
           <img
-            :class="{ hidden: board.name === activeBoard ? false : true }"
+            :class="{ hidden: board.name === displayedBoardId ? false : true }"
             src="@/assets/icon-board-white.svg"
             alt=""
           />
           <span class="ml-3">{{ board.name }}</span>
         </li>
-      </router-link>
+      </button>
       <button
         class="flex pl-6 py-4 items-center mr-6 add-task pr-6"
         disabled
@@ -61,17 +61,24 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "BoardsNavigation",
   computed: {
-    ...mapState(["tasks", "darkmode"]),
+    // ...mapState(["tasks", "darkmode"]),
+    ...mapState({
+      tasks: (state) => state.TasksModule.boards,
+      darkmode: (state) => state.darkmode,
+      displayedBoardId: (state) => state.TasksModule.displayedBoard.id,
+    }),
+
     boards() {
       return this.tasks;
-    },
-    activeBoard() {
-      return this.$route.params.id;
     },
   },
   methods: {
     ...mapMutations([CLOSE_MOBILE_NAV]),
     ...mapActions([ADD_BOARD]),
+    handleNavClick(input) {
+      this.$store.commit("TasksModule/setDisplayedBoard", input);
+      this.CLOSE_MOBILE_NAV();
+    },
   },
 };
 </script>
@@ -87,5 +94,9 @@ export default {
 
 .light-mode:not(.active) {
   @apply hover:bg-opacity-10 hover:bg-kanban-main-purple hover:text-kanban-main-purple;
+}
+
+.nav-button {
+  width: 100%;
 }
 </style>

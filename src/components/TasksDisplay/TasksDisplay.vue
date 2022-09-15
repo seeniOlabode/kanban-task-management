@@ -13,7 +13,7 @@
     ]"
   >
     <div
-      v-if="displayedBoard ? displayedBoard.columns.length <= 0 : false"
+      v-if="displayedBoard ? displayedBoard.tasks.length <= 0 : false"
       class="h-full w-full flex items-center justify-center flex-wrap content-center gap-6"
     >
       <h3 :class="['text-center', 'w-2/3', { 'dark-mode': darkmode }]">
@@ -25,7 +25,7 @@
     </div>
 
     <div
-      v-if="onSlashRoute"
+      v-if="defaultDisplay"
       class="h-full w-full flex items-center justify-center flex-wrap content-center gap-6"
     >
       <h3 class="text-center dark-mode w-2/3 text-xl">
@@ -34,12 +34,25 @@
     </div>
 
     <div v-if="displayedBoard" class="flex pr-6 mr-11">
-      <div v-for="(column, index) in displayedBoard.columns" :key="column.name">
-        <column-component :column-details="column" :index="index" />
-      </div>
+      <column-component
+        name="TODO"
+        :column-details="todoTasks.list"
+        :index="todoTasks.index"
+      />
+      <column-component
+        name="DONE"
+        :column-details="doneTasks.list"
+        :index="doneTasks.index"
+      />
+      <column-component
+        name="DOING"
+        :column-details="doingTasks.list"
+        :index="doingTasks.index"
+      />
       <div><br /></div>
     </div>
     <view-tasks v-if="displayViewTasks" :displayed-board="displayedBoardName" />
+    <add-board-vue />
   </main>
 </template>
 
@@ -49,20 +62,32 @@ import ColumnComponent from "./ColumnComponent.vue";
 import ViewTasks from "../UserFunctionality/ViewTasks.vue";
 import { mapState } from "vuex";
 
+import AddBoardVue from "../UserFunctionality/AddBoard.vue";
+
 export default {
   name: "TaskComponent",
-  components: { AddButton, ColumnComponent, ViewTasks },
+  components: { AddButton, ColumnComponent, ViewTasks, AddBoardVue },
+  data() {
+    return {
+      defaultDisplay: false,
+    };
+  },
   computed: {
-    ...mapState(["darkmode", "nav", "tasks"]),
+    // ...mapState(["darkmode", "nav", "tasks"]),
+    ...mapState({
+      darkmode: (state) => state.darkmode,
+      nav: (state) => state.nav,
+      tasks: (state) => state.TasksModule.boards,
+      boardsFetched: (state) => state.TasksModule.boardsFetched,
+      displayedBoardObject: (state) => state.TasksModule.displayedBoard,
+    }),
+
     displayedBoard() {
-      let board = this.$route.params.id;
-      const boardArray = this.tasks.filter((taskBoard) => {
-        return taskBoard.name === board;
-      });
-      return boardArray[0];
-    },
-    onSlashRoute() {
-      return this.$route.fullPath === "/" ? true : false;
+      if (this.boardsFetched && this.displayedBoardObject.id) {
+        return this.displayedBoardObject;
+      } else {
+        return this.defaultDisplay;
+      }
     },
     displayedBoardName() {
       if (this.displayedBoard) {
@@ -77,6 +102,48 @@ export default {
       } else {
         return "";
       }
+    },
+    todoTasks() {
+      if (this.boardsFetched) {
+        const todoArray = {};
+        todoArray.list = this.displayedBoard.tasks.filter((task) => {
+          return task.status === "TODO";
+        });
+        todoArray.index = 0;
+        return todoArray;
+      }
+      return {
+        list: [],
+        index: 0,
+      };
+    },
+    doingTasks() {
+      if (this.boardsFetched) {
+        const doingArray = {};
+        doingArray.list = this.displayedBoard.tasks.filter((task) => {
+          return task.status === "DOING";
+        });
+        doingArray.index = 1;
+        return doingArray;
+      }
+      return {
+        list: [],
+        index: 1,
+      };
+    },
+    doneTasks() {
+      if (this.boardsFetched) {
+        const doneArray = {};
+        doneArray.list = this.displayedBoard.tasks.filter((task) => {
+          return task.status === "DONE";
+        });
+        doneArray.index = 2;
+        return doneArray;
+      }
+      return {
+        list: [],
+        index: 2,
+      };
     },
   },
 };

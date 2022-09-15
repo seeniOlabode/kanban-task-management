@@ -3,14 +3,11 @@
     <div class="flex flex-nowrap items-center mb-6">
       <div :class="['w-4', 'aspect-square', 'rounded-full', columnColor]"></div>
       <h4 :class="['ml-3', { 'dark-mode': darkmode, 'light-mode': !darkmode }]">
-        {{ columnDetails.name }} ( {{ columnDetails.tasks.length }} )
+        {{ name }} ( {{ columnDetails.length }} )
       </h4>
     </div>
 
-    <task-group
-      :tasks-details-array="columnDetails.tasks"
-      :column-name="columnDetails.name"
-    />
+    <task-group :tasks-details-array="columnDetails" :column-name="name" />
   </div>
 </template>
 
@@ -24,6 +21,10 @@ export default {
     TaskGroup,
   },
   props: {
+    name: {
+      type: String,
+      required: true,
+    },
     columnDetails: {
       type: Object,
       required: true,

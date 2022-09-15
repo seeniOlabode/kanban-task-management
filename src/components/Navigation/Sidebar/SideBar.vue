@@ -51,7 +51,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["darkmode", "nav"]),
+    // ...mapState(["darkmode", "nav"]),
+    ...mapState({
+      darkmode: (state) => state.darkmode,
+      nav: (state) => state.nav,
+      displayedBoard: (state) => state.TasksModule.displayedBoard,
+    }),
   },
   methods: {
     ...mapMutations([OPEN_DESKTOP_NAV]),
