@@ -8,6 +8,12 @@ class TaskRequest {
     status: "TODO",
     boardid: 1,
   };
+  static postSubtasks = {
+    title: "",
+    isCompleted: false,
+    boardid: 0,
+    tasksid: 0,
+  };
 }
 
 export default TaskRequest;

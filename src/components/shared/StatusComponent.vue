@@ -22,7 +22,7 @@
       @click="toggleOptions()"
     >
       <div class="font-medium text-sm">{{ selectedOption }}</div>
-      <button @click="toggleOptions()">
+      <button :disabled="disabled" @click="toggleOptions()">
         <img src="@/assets/icon-chevron-down.svg" alt="" />
       </button>
     </div>
@@ -49,6 +49,10 @@ export default {
     label: {
       default: "Status",
       type: String,
+      required: false,
+    },
+    disabled: {
+      type: Boolean,
       required: false,
     },
   },

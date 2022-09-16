@@ -1,10 +1,14 @@
 <template>
   <modal :display-value="displayValue" @close-modal="closeView()">
     <div>
-      <div>
+      <div class="flex justify-between">
         <h3 class="dark:text-kanban-white font-bold text-lg">
           {{ displayedTask.title }}
         </h3>
+
+        <button>
+          <img src="@/assets/icon-vertical-ellipsis.svg" alt="" />
+        </button>
       </div>
 
       <p class="dark:text-kanban-medium-grey mt-6">

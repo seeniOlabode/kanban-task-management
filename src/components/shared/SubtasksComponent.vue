@@ -56,15 +56,15 @@ export default {
   methods: {
     deleteSub(pos) {
       this.subtasks.splice(pos, 1);
-      this.emitValue;
+      this.emitValue();
     },
     updateSub(e, pos) {
       this.subtasks[pos] = e.target.value;
-      this.emitValue;
+      this.emitValue();
     },
     addSub() {
       this.subtasks.push("");
-      this.emitValue;
+      this.emitValue();
     },
     emitValue() {
       this.$emit("subtasks", this.subtasks);
