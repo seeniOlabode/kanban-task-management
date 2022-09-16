@@ -16,13 +16,13 @@
         'py-2',
         'border',
         'dark:border-kanban-lines-dark',
-        'cursor-pointer',
+        { 'cursor-pointer': !disabledValue },
         { focus: optionsOpen },
       ]"
       @click="toggleOptions()"
     >
       <div class="font-medium text-sm">{{ selectedOption }}</div>
-      <button :disabled="disabled" @click="toggleOptions()">
+      <button :disabled="disabledValue" @click="toggleOptions()">
         <img src="@/assets/icon-chevron-down.svg" alt="" />
       </button>
     </div>
@@ -51,7 +51,7 @@ export default {
       type: String,
       required: false,
     },
-    disabled: {
+    disabledValue: {
       type: Boolean,
       required: false,
     },
@@ -79,13 +79,25 @@ export default {
       this.$emit("selected", option);
     },
     openOptions() {
-      this.optionsOpen = true;
+      if (!this.disabledValue) {
+        this.optionsOpen = true;
+      } else {
+        return "";
+      }
     },
     closeOptions() {
-      this.optionsOpen = false;
+      if (!this.disabledValue) {
+        this.optionsOpen = false;
+      } else {
+        return "";
+      }
     },
     toggleOptions() {
-      this.optionsOpen = this.optionsOpen ? false : true;
+      if (!this.disabledValue) {
+        this.optionsOpen = this.optionsOpen ? false : true;
+      } else {
+        return "";
+      }
     },
   },
 };

@@ -9,6 +9,7 @@ export const state = {
     addTask: false,
     viewTask: false,
     deleteBoard: false,
+    editTask: false,
   },
   displayedTask: { default: true },
 };

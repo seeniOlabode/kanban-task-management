@@ -1,14 +1,12 @@
 <template>
   <modal :display-value="displayValue" @close-modal="closeView()">
     <div>
-      <div class="flex justify-between">
+      <div class="flex justify-between items-center">
         <h3 class="dark:text-kanban-white font-bold text-lg">
           {{ displayedTask.title }}
         </h3>
 
-        <button>
-          <img src="@/assets/icon-vertical-ellipsis.svg" alt="" />
-        </button>
+        <settings />
       </div>
 
       <p class="dark:text-kanban-medium-grey mt-6">
@@ -30,7 +28,7 @@
           />
         </div>
         <div class="text-kanban-white mt-6">
-          <status-select label="Current Status" />
+          <status-select :disabled-value="true" label="Current Status" />
         </div>
       </div>
     </div>
@@ -43,10 +41,11 @@ import { mapState } from "vuex";
 import StatusSelect from "../shared/StatusComponent.vue";
 
 import CheckBoxVue from "../shared/CheckBox.vue";
+import Settings from "@/components/shared/ViewTasksSettings.vue";
 
 export default {
   name: "ViewTasks",
-  components: { Modal, CheckBoxVue, StatusSelect },
+  components: { Modal, CheckBoxVue, StatusSelect, Settings },
   data() {
     return {
       checkValue: true,
