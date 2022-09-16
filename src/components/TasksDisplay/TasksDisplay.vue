@@ -40,20 +40,21 @@
         :index="todoTasks.index"
       />
       <column-component
-        name="DONE"
-        :column-details="doneTasks.list"
-        :index="doneTasks.index"
-      />
-      <column-component
         name="DOING"
         :column-details="doingTasks.list"
         :index="doingTasks.index"
+      />
+      <column-component
+        name="DONE"
+        :column-details="doneTasks.list"
+        :index="doneTasks.index"
       />
       <div><br /></div>
     </div>
     <view-tasks v-if="displayViewTasks" :displayed-board="displayedBoardName" />
     <add-board-vue />
     <add-task-vue />
+    <view-tasks-vue />
   </main>
 </template>
 
@@ -65,11 +66,18 @@ import { mapState } from "vuex";
 
 import AddBoardVue from "../UserFunctionality/AddBoard.vue";
 import AddTaskVue from "../UserFunctionality/AddTask.vue";
+import ViewTasksVue from "../UserFunctionality/ViewTasks.vue";
 
 export default {
   name: "TaskComponent",
   // components: { AddButton, ColumnComponent, ViewTasks, AddBoardVue },
-  components: { ColumnComponent, ViewTasks, AddBoardVue, AddTaskVue },
+  components: {
+    ColumnComponent,
+    ViewTasks,
+    AddBoardVue,
+    AddTaskVue,
+    ViewTasksVue,
+  },
   data() {
     return {
       defaultDisplay: false,

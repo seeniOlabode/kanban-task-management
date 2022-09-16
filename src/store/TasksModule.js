@@ -7,7 +7,9 @@ export const state = {
   functionality: {
     addBoard: false,
     addTask: false,
+    viewTask: false,
   },
+  displayedTask: { default: true },
 };
 
 export const mutations = {
@@ -16,8 +18,14 @@ export const mutations = {
   },
   setDisplayedBoard(state, payload) {
     localStorage.setItem("kanban-last-displayed", payload);
-    const displayedJob = state.boards.find((board) => board.id === payload);
-    state.displayedBoard = displayedJob;
+    const displayedBoard = state.boards.find((board) => board.id === payload);
+    state.displayedBoard = displayedBoard;
+  },
+  setDisplayedTask(state, payload) {
+    const displayedTask = state.displayedBoard.tasks.find(
+      (task) => task.id == payload
+    );
+    state.displayedTask = displayedTask;
   },
   setBoardsFetched(state, payload) {
     state.boardsFetched = payload;
@@ -44,7 +52,7 @@ export const actions = {
       let lastBoardId = localStorage.getItem("kanban-last-displayed");
       let formerBoard = response.data.find((board) => board.id == lastBoardId);
       if (formerBoard) {
-        commit("setDisplayedBoard", formerBoard);
+        commit("setDisplayedBoard", formerBoard.id);
       } else {
         let firstBoard = response.data[0].id;
         commit("setDisplayedBoard", firstBoard);
@@ -63,8 +71,8 @@ export const actions = {
     commit("setFunctionalityOn", payload);
   },
   turnFunctionalityOff({ commit }, payload) {
-    commit("turnOffAllFunctions");
     commit("setFunctionalityOff", payload);
+    commit("turnOffAllFunctions");
   },
   async deleteBoard({ dispatch, commit, state }) {
     let deleteBoardId = state.displayedBoard.id;

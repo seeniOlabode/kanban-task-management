@@ -22,7 +22,11 @@
           type="textArea"
         />
 
-        <status-select @selected="(emit) => saveSelected(emit)" class="mt-6" />
+        <status-select
+          label="Status"
+          class="mt-6"
+          @selected="(emit) => saveSelected(emit)"
+        />
       </div>
 
       <div
@@ -81,6 +85,7 @@ export default {
   },
   methods: {
     async addTask() {
+      this.$forceUpdate();
       this.falseValue = false;
       let modelPass = true;
       if (this.model.title == "" || this.model.title.length < 5) {

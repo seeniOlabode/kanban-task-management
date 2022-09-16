@@ -1,6 +1,6 @@
 <template>
   <div class="relative whole-container">
-    <label class="text-sm font-bold">Status</label>
+    <label class="text-sm font-bold">{{ label }}</label>
     <div
       :class="[
         'mt-2',
@@ -42,6 +42,13 @@
 <script>
 export default {
   name: "StatusSelect",
+  props: {
+    label: {
+      default: "Status",
+      type: String,
+      required: false,
+    },
+  },
   emits: ["selected"],
   data() {
     return {

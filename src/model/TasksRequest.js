@@ -3,9 +3,9 @@ class TaskRequest {
   static postBoard = { name: "" };
   static getTasks = { boardid: 1 };
   static postTasks = {
-    title: " UI 2 for onboarding flow",
+    title: "",
     description: "",
-    status: "DONE",
+    status: "TODO",
     boardid: 1,
   };
 }

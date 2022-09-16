@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="openTaskView()">
     <li
       :class="[
         'px-4',
@@ -50,6 +50,15 @@ export default {
         return (acc = currentSub.isCompleted ? acc + 1 : acc);
       }, 0);
       return `${completedTasks} of ${subtasksArray.length} Subtasks`;
+    },
+  },
+  methods: {
+    openTaskView() {
+      this.$store.commit(
+        "TasksModule/setDisplayedTask",
+        this.singleTaskDetails.id
+      );
+      this.$store.dispatch("TasksModule/turnFunctionalityOn", "viewTask");
     },
   },
 };
