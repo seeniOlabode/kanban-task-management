@@ -8,6 +8,7 @@
       'py-2',
       'w-full',
       'font-bold',
+      'text-sm',
       { danger: dangerButton },
     ]"
     @click="$emit('buttonClicked', true)"

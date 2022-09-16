@@ -22,6 +22,8 @@
           type="textArea"
         />
 
+        <subtasks-component class="mt-6" @subtasks="" />
+
         <status-select
           label="Status"
           class="mt-6"
@@ -38,7 +40,7 @@
       <action-button
         v-else
         :danger-button="false"
-        class="mt-6"
+        class="mt-6 text-kanban-white"
         @button-clicked="addTask()"
       >
         Create New Task
@@ -56,6 +58,7 @@ import Loader from "@/components/shared/LoaderComponent.vue";
 import InputComponent from "@/components/shared/InputComponent.vue";
 import ActionButton from "@/components/shared/ActionButton.vue";
 import StatusSelect from "@/components/shared/StatusComponent.vue";
+import SubtasksComponent from "@/components/shared/SubtasksComponent.vue";
 
 export default {
   name: "AddTask",
@@ -65,6 +68,7 @@ export default {
     ActionButton,
     Loader,
     StatusSelect,
+    SubtasksComponent,
   },
   data() {
     return {

@@ -23,7 +23,7 @@
       <action-button
         v-else
         :danger-button="false"
-        class="mt-6"
+        class="mt-6 text-kanban-white"
         @button-clicked="addBoard()"
       >
         Create New Board

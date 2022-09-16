@@ -42,7 +42,7 @@
       </button>
     </ul>
     <button
-      class="flex pl-6 py-4 items-center mr-6 add-task pr-6"
+      class="flex pl-6 py-4 items-center mr-6 add-task pr-6 mt-5"
       @click="openAddBoard()"
     >
       <img src="@/assets/purple-board.svg" alt="" />

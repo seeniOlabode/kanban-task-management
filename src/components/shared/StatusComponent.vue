@@ -1,6 +1,9 @@
 <template>
   <div class="relative whole-container">
-    <label class="text-sm font-bold">{{ label }}</label>
+    <label
+      class="text-sm font-bold text-kanban-medium-grey dark:text-kanban-white"
+      >{{ label }}</label
+    >
     <div
       :class="[
         'mt-2',
