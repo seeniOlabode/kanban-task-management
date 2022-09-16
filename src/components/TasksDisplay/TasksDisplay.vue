@@ -52,10 +52,7 @@
       <div><br /></div>
     </div>
     <view-tasks v-if="displayViewTasks" :displayed-board="displayedBoardName" />
-    <add-board-vue />
-    <add-task-vue />
-    <view-tasks-vue />
-    <delete-board />
+    <user-functionality />
   </main>
 </template>
 
@@ -65,10 +62,7 @@ import ColumnComponent from "./ColumnComponent.vue";
 import ViewTasks from "../UserFunctionality/ViewTasks.vue";
 import { mapState } from "vuex";
 
-import AddBoardVue from "../UserFunctionality/AddBoard.vue";
-import AddTaskVue from "../UserFunctionality/AddTask.vue";
-import ViewTasksVue from "../UserFunctionality/ViewTasks.vue";
-import DeleteBoard from "../UserFunctionality/DeleteBoard.vue";
+import UserFunctionality from "../UserFunctionality/UserFunctionality.vue";
 
 export default {
   name: "TaskComponent",
@@ -76,10 +70,7 @@ export default {
   components: {
     ColumnComponent,
     ViewTasks,
-    AddBoardVue,
-    AddTaskVue,
-    ViewTasksVue,
-    DeleteBoard,
+    UserFunctionality,
   },
   data() {
     return {

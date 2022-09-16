@@ -34,6 +34,10 @@ export const mutations = {
   },
   turnOffAllFunctions(state) {
     state.functionality.addBoard = false;
+    state.functionality.addTask = false;
+    state.functionality.viewTask = false;
+    state.functionality.deleteBoard = false;
+    state.functionality.editTask = false;
   },
   setFunctionalityOn(state, payload) {
     state.functionality[payload] = true;

@@ -55,6 +55,11 @@ export default {
       type: Boolean,
       required: false,
     },
+    initialValue: {
+      default: "Todo",
+      type: String,
+      required: false,
+    },
   },
   emits: ["selected"],
   data() {
@@ -64,6 +69,7 @@ export default {
       optionsOpen: false,
     };
   },
+
   computed: {
     // unselectedOptions() {
     //   let unselected = this.options.filter(
@@ -71,6 +77,11 @@ export default {
     //   );
     //   return unselected;
     // },
+  },
+  mounted() {
+    this.selectedOption = this.initialValue;
+    let option = this.selectedOption;
+    this.$emit("selected", option);
   },
   methods: {
     select(option) {

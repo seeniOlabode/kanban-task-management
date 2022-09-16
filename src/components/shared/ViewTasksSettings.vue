@@ -12,7 +12,7 @@
       id="drop-menu"
       :class="[
         'absolute',
-        'top-12',
+        'top-8',
         'right-0',
         'w-48',
         'p-4',

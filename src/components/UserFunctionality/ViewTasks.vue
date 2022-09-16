@@ -28,7 +28,11 @@
           />
         </div>
         <div class="text-kanban-white mt-6">
-          <status-select :disabled-value="true" label="Current Status" />
+          <status-select
+            :initial-value="displayedTask.status"
+            :disabled-value="true"
+            label="Current Status"
+          />
         </div>
       </div>
     </div>

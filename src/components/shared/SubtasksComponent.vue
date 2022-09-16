@@ -46,13 +46,23 @@ import ActionButtonVue from "./ActionButton.vue";
 export default {
   name: "SubtasksInput",
   components: { DeleteButtonVue, ActionButtonVue },
+  props: {
+    initialSubtasks: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
   emits: ["subtasks"],
   data() {
     return {
-      subtasks: ["New Task", "anoter"],
+      subtasks: [],
     };
   },
   computed: {},
+  mounted() {
+    this.subtasks = this.initialSubtasks;
+  },
   methods: {
     deleteSub(pos) {
       this.subtasks.splice(pos, 1);
