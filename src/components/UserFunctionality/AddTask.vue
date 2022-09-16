@@ -35,7 +35,12 @@
       >
         <loader />
       </div>
-      <action-button v-else class="mt-6" @button-clicked="addTask()">
+      <action-button
+        v-else
+        :danger-button="false"
+        class="mt-6"
+        @button-clicked="addTask()"
+      >
         Create New Task
       </action-button>
     </div>
@@ -112,7 +117,6 @@ export default {
     },
     saveSelected(input) {
       this.model.status = input.toLocaleUpperCase();
-      console.log(input);
     },
   },
 };

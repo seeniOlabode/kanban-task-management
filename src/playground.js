@@ -1,7 +1,7 @@
-import { BoardsArray } from "./taskmanagement/Boards";
+// import { BoardsArray } from "./taskmanagement/Boards";
 
-import { Board } from "./taskmanagement/Boards";
+// import { Board } from "./taskmanagement/Boards";
 
-const firstBoard = new Board("Platform Laumch");
+// const firstBoard = new Board("Platform Laumch");
 
-console.log(BoardsArray, firstBoard);
+// console.log(BoardsArray, firstBoard);

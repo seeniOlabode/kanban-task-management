@@ -8,6 +8,7 @@ export const state = {
     addBoard: false,
     addTask: false,
     viewTask: false,
+    deleteBoard: false,
   },
   displayedTask: { default: true },
 };
@@ -78,15 +79,17 @@ export const actions = {
     let deleteBoardId = state.displayedBoard.id;
     const response = await TasksService.deleteBoard(deleteBoardId);
     if (response.status === 200) {
-      console.log("Hmmm");
+      dispatch("fetchTasks");
+      let boardId = state.boards[0].id;
+      commit("setDisplayedBoard", boardId);
+    } else {
+      dispatch("fetchTasks");
+      let boardId = state.boards[0].id;
+      commit("setDisplayedBoard", boardId);
     }
-    dispatch("fetchTasks");
-    let boardId = state.boards[0].id;
-    commit("setDisplayedBoard", boardId);
   },
   async addTask({ dispatch, state }, payload) {
     payload.boardid = state.displayedBoard.id;
-    console.log(payload);
     await TasksService.postTask(payload);
     dispatch("fetchTasks");
   },

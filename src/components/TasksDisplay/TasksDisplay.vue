@@ -55,6 +55,7 @@
     <add-board-vue />
     <add-task-vue />
     <view-tasks-vue />
+    <delete-board />
   </main>
 </template>
 
@@ -67,6 +68,7 @@ import { mapState } from "vuex";
 import AddBoardVue from "../UserFunctionality/AddBoard.vue";
 import AddTaskVue from "../UserFunctionality/AddTask.vue";
 import ViewTasksVue from "../UserFunctionality/ViewTasks.vue";
+import DeleteBoard from "../UserFunctionality/DeleteBoard.vue";
 
 export default {
   name: "TaskComponent",
@@ -77,6 +79,7 @@ export default {
     AddBoardVue,
     AddTaskVue,
     ViewTasksVue,
+    DeleteBoard,
   },
   data() {
     return {

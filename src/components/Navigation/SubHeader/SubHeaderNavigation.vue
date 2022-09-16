@@ -28,7 +28,7 @@
         </li>
         <button
           class="text-kanban-red text-sm hover:text-kanban-red-hover hover:cursor-pointer"
-          @click="deleteDisplayedBoard()"
+          @click="openDeleteBoard()"
         >
           Delete Board
         </button>
@@ -71,9 +71,9 @@ export default {
         }
       }, 1500);
     },
-    deleteDisplayedBoard() {
+    openDeleteBoard() {
+      this.$store.dispatch("TasksModule/turnFunctionalityOn", "deleteBoard");
       this.settingsOpen = false;
-      this.$store.dispatch("TasksModule/deleteBoard");
     },
   },
 };

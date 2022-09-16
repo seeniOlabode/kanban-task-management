@@ -62,10 +62,8 @@ export default {
     },
     loadSubs() {
       let output = false;
-      console.log(this.subtasks);
       if (this.subtasks.length >= 1) {
         output = true;
-        console.log("loadSubs:", output);
       }
       return output;
     },

@@ -20,7 +20,12 @@
       >
         <loader />
       </div>
-      <action-button v-else class="mt-6" @button-clicked="addBoard()">
+      <action-button
+        v-else
+        :danger-button="false"
+        class="mt-6"
+        @button-clicked="addBoard()"
+      >
         Create New Board
       </action-button>
     </div>
