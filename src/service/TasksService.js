@@ -4,6 +4,7 @@ export const baseURL = "https://kbapiapp.herokuapp.com/";
 
 export const apiClient = axios.create({
   baseURL: baseURL,
+  timeout: 2000,
 });
 
 export default {
@@ -23,9 +24,15 @@ export default {
     return apiClient.post("api/tasks/add", payload);
   },
   addSubTask(payload) {
-    return apiClient.post(payload);
+    return apiClient.post("api/subtasks/add", payload);
   },
   getSubtasks(payload) {
     return apiClient.post(payload);
+  },
+  updateTask(payload) {
+    return apiClient.put("api/tasks/update/" + payload.id, payload);
+  },
+  deleteTask(payload) {
+    return apiClient.delete("api/tasks/delete/" + payload);
   },
 };

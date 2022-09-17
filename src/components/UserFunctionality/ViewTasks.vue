@@ -25,6 +25,7 @@
             :check-id="'check' + sub.id"
             :label-text="sub.title"
             :model-value="checkValue"
+            class="mb-2"
           />
         </div>
         <div class="text-kanban-white mt-6">

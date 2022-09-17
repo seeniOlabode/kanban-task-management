@@ -16,6 +16,7 @@
         'right-0',
         'w-48',
         'p-4',
+        'z-30',
         'rounded-lg',
         { 'dark-mode': darkmode, 'light-mode': !darkmode },
       ]"
@@ -77,7 +78,9 @@ export default {
       this.$store.dispatch("TasksModule/turnFunctionalityOn", "editTask");
       this.settingsOpen = false;
     },
-    deleteTask() {},
+    deleteTask() {
+      this.$store.dispatch("TasksModule/turnFunctionalityOn", "deleteTask");
+    },
   },
 };
 </script>

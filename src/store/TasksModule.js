@@ -10,6 +10,7 @@ export const state = {
     viewTask: false,
     deleteBoard: false,
     editTask: false,
+    deleteTask: false,
   },
   displayedTask: { default: true },
 };
@@ -45,10 +46,25 @@ export const mutations = {
   setFunctionalityOff(state, payload) {
     state.functionality[payload] = false;
   },
+  clearApp(state) {
+    state.boards = [];
+    state.displayedBoard = { default: true };
+    state.boardsFetched = false;
+    state.functionality = {
+      addBoard: false,
+      addTask: false,
+      viewTask: false,
+      deleteBoard: false,
+      editTask: false,
+      deleteTask: false,
+    };
+    state.displayedTask = { default: true };
+  },
 };
 
 export const actions = {
   async fetchTasks({ commit }) {
+    commit("clearApp");
     const response = await TasksService.getBoards({
       empty: true,
     });
@@ -80,22 +96,39 @@ export const actions = {
     commit("setFunctionalityOff", payload);
     commit("turnOffAllFunctions");
   },
-  async deleteBoard({ dispatch, commit, state }) {
+  async deleteBoard({ dispatch, state }) {
     let deleteBoardId = state.displayedBoard.id;
     const response = await TasksService.deleteBoard(deleteBoardId);
     if (response.status === 200) {
       dispatch("fetchTasks");
-      let boardId = state.boards[0].id;
-      commit("setDisplayedBoard", boardId);
+      // let boardId = state.boards[0].id;
+      // commit("setDisplayedBoard", boardId);
     } else {
       dispatch("fetchTasks");
-      let boardId = state.boards[0].id;
-      commit("setDisplayedBoard", boardId);
+      // let boardId = state.boards[0].id;
+      // commit("setDisplayedBoard", boardId);
     }
   },
   async addTask({ dispatch, state }, payload) {
     payload.boardid = state.displayedBoard.id;
     await TasksService.postTask(payload);
+    dispatch("fetchTasks");
+  },
+  async updateTask({ dispatch }, payload) {
+    await TasksService.updateTask(payload);
+    dispatch("fetchTasks");
+  },
+  async postMultipleSubs({ dispatch }, payload) {
+    if (payload.length >= 1) {
+      payload.forEach(async (sub) => {
+        await TasksService.addSubTask(sub);
+      });
+    }
+    dispatch("fetchTasks");
+  },
+  async deleteTask({ dispatch, state }) {
+    let deleteTaskId = state.displayedTask.id;
+    await TasksService.deleteTask(deleteTaskId);
     dispatch("fetchTasks");
   },
 };

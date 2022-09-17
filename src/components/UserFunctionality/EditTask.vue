@@ -15,6 +15,7 @@
           v-model="localVersion.description"
           :false-value="false"
           label="Description"
+          type="textArea"
           placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
           class="mt-6"
         />
@@ -25,9 +26,21 @@
           @subtasks="(subtasks) => updateSubtasks(subtasks)"
         />
 
-        <status-component :initial-value="localVersion.status" class="mt-6" />
+        <status-component
+          :initial-value="localVersion.status"
+          class="mt-6"
+          @selected="(input) => updateStatus(input)"
+        />
+
+        <div
+          v-if="editLoading"
+          class="bg-kanban-main-purple w-full py-2 rounded-3xl flex justify-center mt-6"
+        >
+          <loader />
+        </div>
 
         <action-button
+          v-else
           class="mt-6"
           :danger-button="false"
           @click="saveChanges()"
@@ -42,7 +55,7 @@
 <script>
 import Modal from "@/components/shared/ModalComponent.vue";
 import { mapState } from "vuex";
-// import Loader from "@/components/shared/LoaderComponent.vue";
+import Loader from "@/components/shared/LoaderComponent.vue";
 import InputComponent from "../shared/InputComponent.vue";
 import SubtasksComponent from "../shared/SubtasksComponent.vue";
 import ActionButton from "../shared/ActionButton.vue";
@@ -58,6 +71,7 @@ export default {
     SubtasksComponent,
     ActionButton,
     StatusComponent,
+    Loader,
   },
   data() {
     return {
@@ -91,16 +105,35 @@ export default {
       this.$store.dispatch("TasksModule/turnFunctionalityOff", "editTask");
       this.editLoading = false;
     },
+    updateStatus(input) {
+      this.localVersion.status = input.toLocaleUpperCase();
+    },
     updateSubtasks(input) {
       let subtasksArray = input.map((subtask) => {
         let newSubTask = TaskRequest.postSubtasks;
         newSubTask.title = subtask;
-        newSubTask.boardid = this.boardid;
+        newSubTask.boardid = this.localVersion.boardid;
+        newSubTask.tasksid = this.localVersion.id;
         return newSubTask;
       });
       this.localVersion.subtasks = subtasksArray;
     },
-    saveChanges() {},
+    async saveChanges() {
+      this.editLoading = true;
+      let taskUpdateBody = {};
+      taskUpdateBody.title = this.localVersion.title;
+      taskUpdateBody.boardid = this.localVersion.boardid;
+      taskUpdateBody.description = this.localVersion.description;
+      taskUpdateBody.id = this.localVersion.id;
+      taskUpdateBody.status = this.localVersion.status;
+      await this.$store.dispatch("TasksModule/updateTask", taskUpdateBody);
+      await this.$store.dispatch(
+        "TasksModule/postMultipleSubs",
+        this.localVersion.subtasks
+      );
+      this.editLoading = false;
+      this.$store.dispatch("TasksModule/turnFunctionalityOff");
+    },
   },
 };
 </script>

@@ -4,6 +4,7 @@
   <view-tasks-vue />
   <delete-board />
   <edit-task v-if="editTaskDisplay" />
+  <delete-task />
 </template>
 
 <script>
@@ -12,6 +13,7 @@ import AddTaskVue from "../UserFunctionality/AddTask.vue";
 import ViewTasksVue from "../UserFunctionality/ViewTasks.vue";
 import DeleteBoard from "../UserFunctionality/DeleteBoard.vue";
 import EditTask from "./EditTask.vue";
+import DeleteTask from "./DeleteTask.vue";
 
 import { mapState } from "vuex";
 
@@ -23,6 +25,7 @@ export default {
     ViewTasksVue,
     DeleteBoard,
     EditTask,
+    DeleteTask,
   },
   computed: {
     ...mapState({
