@@ -4,7 +4,6 @@ export const baseURL = "https://kbapiapp.herokuapp.com/";
 
 export const apiClient = axios.create({
   baseURL: baseURL,
-  timeout: 2000,
 });
 
 export default {
