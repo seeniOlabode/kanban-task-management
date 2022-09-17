@@ -94,12 +94,9 @@ export default {
     this.subtasks.forEach((sub) => {
       this.localCheckVersion.push(sub);
     });
-    console.log(this.localCheckVersion);
   },
   methods: {
     markCheckBox(value, id) {
-      console.log("value", value);
-      console.log("id", id);
       let payloadObject = {};
       payloadObject.id = id;
       payloadObject.isCompleted = value;

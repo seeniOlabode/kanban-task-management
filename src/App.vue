@@ -65,6 +65,10 @@ export default {
 </script>
 
 <style>
+body {
+  @apply bg-kanban-very-dark-grey;
+}
+
 #app {
   font-family: "Plus Jakarta Sans", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

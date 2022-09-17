@@ -38,7 +38,6 @@ export default {
     return apiClient.delete("api/tasks/delete/" + payload);
   },
   updateSubTask(payload) {
-    console.log("update");
     return apiClient.put("api/subtasks/update/" + payload.id, payload);
   },
 };

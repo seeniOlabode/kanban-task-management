@@ -118,12 +118,10 @@ export const actions = {
     dispatch("fetchTasks");
   },
   async updateTask({ dispatch }, payload) {
-    console.log("we here : Update Task");
     await TasksService.updateTask(payload);
     dispatch("fetchTasks");
   },
   async postMultipleSubs({ dispatch }, payload) {
-    console.log("we here : Sub");
     if (payload.length >= 1) {
       payload.forEach(async (sub) => {
         await TasksService.addSubTask(sub);

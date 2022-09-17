@@ -43,14 +43,15 @@ export const state = () => {
 
 export const mutations = {
   setInfoScreen(state) {
-    let displayScreen = JSON.parse(sessionStorage.getItem("info-displayed"));
-    if (!displayScreen) {
-      state.infoScreenDisplayed = true;
-      sessionStorage.setItem("info-displayed", true);
-    } else {
-      state.infoScreenDisplayed = false;
-      sessionStorage.setItem("info-displayed", true);
-    }
+    // let displayScreen = JSON.parse(sessionStorage.getItem("info-displayed"));
+    // if (!displayScreen) {
+    //   state.infoScreenDisplayed = true;
+    //   sessionStorage.setItem("info-displayed", true);
+    // } else {
+    //   state.infoScreenDisplayed = false;
+    //   sessionStorage.setItem("info-displayed", true);
+    // }
+    state.infoScreenDisplayed = false;
   },
   [OPEN_MOBILE_NAV](state) {
     state.nav.mobileNavIsOpen = true;
