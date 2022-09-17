@@ -53,6 +53,12 @@
     </div>
     <view-tasks v-if="displayViewTasks" :displayed-board="displayedBoardName" />
     <user-functionality />
+    <div
+      v-show="!boardsFetched"
+      class="w-full h-full flex items-center justify-center"
+    >
+      <loader :purple="true" />
+    </div>
   </main>
 </template>
 
@@ -61,6 +67,7 @@
 import ColumnComponent from "./ColumnComponent.vue";
 import ViewTasks from "../UserFunctionality/ViewTasks.vue";
 import { mapState } from "vuex";
+import Loader from "@/components/shared/LoaderComponent.vue";
 
 import UserFunctionality from "../UserFunctionality/UserFunctionality.vue";
 
@@ -71,6 +78,7 @@ export default {
     ColumnComponent,
     ViewTasks,
     UserFunctionality,
+    Loader,
   },
   data() {
     return {

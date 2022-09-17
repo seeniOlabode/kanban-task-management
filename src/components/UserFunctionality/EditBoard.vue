@@ -6,7 +6,7 @@
       </h3>
       <div class="mt-6 dark:text-kanban-white">
         <input-component
-          v-model="localVersion.title"
+          v-model="localVersion.name"
           :false-value="false"
           label="Title"
           placeholder="e.g. Take Coffee Break"
@@ -23,6 +23,7 @@
           v-else
           class="mt-6"
           :danger-button="false"
+          :disabled="!nameChanged"
           @click="saveChanges()"
         >
           Save Changes
@@ -39,10 +40,8 @@ import Loader from "@/components/shared/LoaderComponent.vue";
 import InputComponent from "../shared/InputComponent.vue";
 import ActionButton from "../shared/ActionButton.vue";
 
-import TaskRequest from "@/model/TasksRequest";
-
 export default {
-  name: "EditTasks",
+  name: "EditBoard",
   components: {
     Modal,
     InputComponent,
@@ -53,17 +52,29 @@ export default {
     return {
       editLoading: false,
       localVersion: {},
+      savedVersion: "",
     };
   },
   computed: {
     ...mapState({
-      displayValue: (state) => state.TasksModule.functionality.ediBoard,
+      displayValue: (state) => state.TasksModule.functionality.editBoard,
       displayedBoard: (state) => state.TasksModule.displayedBoard,
     }),
+    nameChanged() {
+      let output = false;
+      if (
+        !(this.savedVersion == this.localVersion.name) &&
+        !(this.localVersion.name == "") &&
+        !(this.localVersion.name == " ")
+      ) {
+        output = true;
+      }
+      return output;
+    },
   },
   beforeMount() {
     this.localVersion.name = this.displayedBoard.name;
-    this.localVersion.id = this.displayedBoard.id;
+    this.savedVersion = this.displayedBoard.name;
   },
   methods: {
     closeEditTask() {
@@ -72,7 +83,7 @@ export default {
     },
     async saveChanges() {
       this.editLoading = true;
-      await TaskRequest.editBoard();
+      await this.$store.dispatch("TasksModule/updateBoard", this.localVersion);
       this.editLoading = false;
       this.$store.dispatch("TasksModule/turnFunctionalityOff");
     },
@@ -84,4 +95,8 @@ export default {
 /* .spinner {
   border-color: #635fc7 #0000;
 } */
+
+button[disabled] {
+  opacity: 0.85;
+}
 </style>

@@ -16,6 +16,7 @@
         'right-0',
         'w-48',
         'p-4',
+        'z-20',
         'rounded-lg',
         { 'dark-mode': darkmode, 'light-mode': !darkmode },
       ]"
@@ -23,11 +24,14 @@
       @mouseenter="subNavHover = true"
     >
       <ul>
-        <li class="text-kanban-medium-grey text-sm mb-5 hover:cursor-pointer">
-          Edit Board
-        </li>
         <button
-          class="text-kanban-red text-sm hover:text-kanban-red-hover hover:cursor-pointer"
+          class="text-kanban-medium-grey text-sm mb-5 hover:cursor-pointer w-full text-left"
+          @click="openEditBoard()"
+        >
+          Edit Board
+        </button>
+        <button
+          class="text-kanban-red text-sm hover:text-kanban-red-hover text-left w-full hover:cursor-pointer"
           @click="openDeleteBoard()"
         >
           Delete Board
@@ -73,6 +77,10 @@ export default {
     },
     openDeleteBoard() {
       this.$store.dispatch("TasksModule/turnFunctionalityOn", "deleteBoard");
+      this.settingsOpen = false;
+    },
+    openEditBoard() {
+      this.$store.dispatch("TasksModule/turnFunctionalityOn", "editBoard");
       this.settingsOpen = false;
     },
   },

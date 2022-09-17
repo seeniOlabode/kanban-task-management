@@ -11,7 +11,7 @@ export const state = {
     deleteBoard: false,
     editTask: false,
     deleteTask: false,
-    editBoard: false,
+    editBoard: true,
   },
   displayedTask: { default: true },
 };
@@ -40,6 +40,7 @@ export const mutations = {
     state.functionality.viewTask = false;
     state.functionality.deleteBoard = false;
     state.functionality.editTask = false;
+    state.functionality.editBoard = false;
   },
   setFunctionalityOn(state, payload) {
     state.functionality[payload] = true;
@@ -58,6 +59,7 @@ export const mutations = {
       deleteBoard: false,
       editTask: false,
       deleteTask: false,
+      editBoard: false,
     };
     state.displayedTask = { default: true };
   },
@@ -116,10 +118,12 @@ export const actions = {
     dispatch("fetchTasks");
   },
   async updateTask({ dispatch }, payload) {
+    console.log("we here : Update Task");
     await TasksService.updateTask(payload);
     dispatch("fetchTasks");
   },
   async postMultipleSubs({ dispatch }, payload) {
+    console.log("we here : Sub");
     if (payload.length >= 1) {
       payload.forEach(async (sub) => {
         await TasksService.addSubTask(sub);
@@ -130,6 +134,11 @@ export const actions = {
   async deleteTask({ dispatch, state }) {
     let deleteTaskId = state.displayedTask.id;
     await TasksService.deleteTask(deleteTaskId);
+    dispatch("fetchTasks");
+  },
+  async updateBoard({ dispatch, state }, payload) {
+    let id = state.displayedBoard.id;
+    await TasksService.updateBoard(id, payload);
     dispatch("fetchTasks");
   },
 };

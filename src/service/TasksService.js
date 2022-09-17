@@ -13,6 +13,9 @@ export default {
   postBoard(payload) {
     return apiClient.post("api/boards", payload);
   },
+  updateBoard(id, payload) {
+    return apiClient.put("api/boards/" + id, payload);
+  },
   deleteBoard(payload) {
     return apiClient.delete("api/boards/" + payload);
   },
