@@ -7,6 +7,7 @@
         <input
           :id="checkId"
           type="checkbox"
+          :checked="initialValue"
           @change="($event) => emitValue($event)"
         />
         <span class="box">
@@ -34,7 +35,7 @@ export default {
   name: "CheckBox",
   // props: ["modelValue"],
   props: {
-    modelValue: {
+    initialValue: {
       type: Boolean,
       required: true,
     },
@@ -46,17 +47,33 @@ export default {
       type: String,
       required: true,
     },
+    modelValue: {
+      type: Boolean,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
-  emits: ["update:modelValue"],
+  emits: ["modelValue", "markCheck"],
   data() {
     return {
       localValue: false,
     };
   },
+  mounted() {
+    // this.localValue = this.modelValue;
+  },
   methods: {
     emitValue($event) {
       this.localValue = $event.target.checked;
-      this.$emit("update:modelValue", $event.target.checked);
+      this.$emit("modelValue", $event.target.checked, this.index);
+      this.$emit(
+        "markCheck",
+        $event.target.checked,
+        Number(this.checkId.replace("check", ""))
+      );
     },
   },
 };

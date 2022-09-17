@@ -1,7 +1,7 @@
 <template>
   <add-board-vue />
   <add-task-vue />
-  <view-tasks-vue />
+  <view-tasks-vue v-if="viewTaskDisplay" />
   <delete-board />
   <edit-task v-if="editTaskDisplay" />
   <delete-task />
@@ -35,6 +35,7 @@ export default {
       displayedTask: (state) => state.TasksModule.displayedTask,
       editTaskDisplay: (state) => state.TasksModule.functionality.editTask,
       editBoardDisplay: (state) => state.TasksModule.functionality.editBoard,
+      viewTaskDisplay: (state) => state.TasksModule.functionality.viewTask,
     }),
   },
 };

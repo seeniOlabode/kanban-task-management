@@ -1,5 +1,5 @@
 <template>
-  <modal :display-value="displayValue" @close-modal="closeDeleteBoard()">
+  <modal :display-value="displayValue" @close-modal="closeDeleteTask()">
     <div>
       <h3 class="text-kanban-red font-bold text-lg">Delete this task?</h3>
       <p class="mt-6 text-kanban-medium-grey">
@@ -57,7 +57,7 @@ export default {
     async deleteTask() {
       this.deleteLoading = true;
       await this.$store.dispatch("TasksModule/deleteTask");
-      this.closeDeleteBoard();
+      this.closeDeleteTask();
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div @click="openTaskView()">
+  <div draggable="true" @click="openTaskView()">
     <li
       :class="[
         'px-4',

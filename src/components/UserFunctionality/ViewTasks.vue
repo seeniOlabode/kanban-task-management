@@ -20,12 +20,16 @@
 
         <div v-if="loadSubs" class="mt-4">
           <check-box-vue
-            v-for="sub in subtasks"
+            v-for="(sub, index) in subtasks"
             :key="sub.id"
             :check-id="'check' + sub.id"
             :label-text="sub.title"
-            :model-value="checkValue"
+            :initial-value="sub.isCompleted"
+            :index="index"
             class="mb-2"
+            :model-value="localCheckVersion[index].isCompleted"
+            @mark-check="(value, id) => markCheckBox(value, id)"
+            @model-value="(value, index) => updateLocal(value, index)"
           />
         </div>
         <div class="text-kanban-white mt-6">
@@ -48,12 +52,15 @@ import StatusSelect from "../shared/StatusComponent.vue";
 import CheckBoxVue from "../shared/CheckBox.vue";
 import Settings from "@/components/shared/ViewTasksSettings.vue";
 
+import TasksService from "@/service/TasksService";
+
 export default {
   name: "ViewTasks",
   components: { Modal, CheckBoxVue, StatusSelect, Settings },
   data() {
     return {
       checkValue: true,
+      localCheckVersion: [],
     };
   },
   computed: {
@@ -83,9 +90,26 @@ export default {
       return output;
     },
   },
+  created() {
+    this.subtasks.forEach((sub) => {
+      this.localCheckVersion.push(sub);
+    });
+    console.log(this.localCheckVersion);
+  },
   methods: {
+    markCheckBox(value, id) {
+      console.log("value", value);
+      console.log("id", id);
+      let payloadObject = {};
+      payloadObject.id = id;
+      payloadObject.isCompleted = value;
+      TasksService.updateSubTask(payloadObject);
+    },
     closeView() {
       this.$store.dispatch("TasksModule/turnFunctionalityOff", "viewTask");
+    },
+    updateLocal(value, index) {
+      this.localCheckVersion[index].isCompleted = value;
     },
   },
 };
