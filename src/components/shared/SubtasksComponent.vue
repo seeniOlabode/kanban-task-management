@@ -57,15 +57,19 @@ export default {
   data() {
     return {
       subtasks: [],
+      deleted: [],
     };
   },
   computed: {},
   mounted() {
     this.subtasks = this.initialSubtasks;
+    // this.subtasks.forEach((sub) => {
+    //   sub.fixed = true;
+    // });
   },
   methods: {
     deleteSub(pos) {
-      this.subtasks.splice(pos, 1);
+      this.deleted.push(this.subtasks.splice(pos, 1)[0]);
       this.emitValue();
     },
     updateSub(e, pos) {
@@ -77,7 +81,8 @@ export default {
       this.emitValue();
     },
     emitValue() {
-      this.$emit("subtasks", this.subtasks);
+      this.$emit("subtasks", this.subtasks, this.deleted);
+      // console.log(this.deleted);
     },
   },
 };

@@ -23,7 +23,7 @@
         <subtasks-component
           class="mt-6"
           :initial-subtasks="convertedTasks"
-          @subtasks="(subtasks) => updateSubtasks(subtasks)"
+          @subtasks="(subtasks, deleted) => updateSubtasks(subtasks, deleted)"
         />
 
         <status-component
@@ -61,7 +61,7 @@ import SubtasksComponent from "../shared/SubtasksComponent.vue";
 import ActionButton from "../shared/ActionButton.vue";
 import StatusComponent from "../shared/StatusComponent.vue";
 
-import TaskRequest from "@/model/TasksRequest";
+// import TaskRequest from "@/model/TasksRequest";
 
 export default {
   name: "EditTasks",
@@ -77,6 +77,7 @@ export default {
     return {
       editLoading: false,
       localVersion: {},
+      deleteArray: [],
     };
   },
   computed: {
@@ -108,17 +109,33 @@ export default {
     updateStatus(input) {
       this.localVersion.status = input.toLocaleUpperCase();
     },
-    updateSubtasks(input) {
-      let subtasksArray = input.map((subtask) => {
-        let newSubTask = TaskRequest.postSubtasks;
-        newSubTask.title = subtask;
+    updateSubtasks(input, inputTwo) {
+      // console.log("subtasks", input);
+      // console.log("delete", inputTwo);
+      let array = [];
+      input.forEach((sub) => {
+        var newSubTask = {
+          title: "",
+          isCompleted: false,
+          boardid: 0,
+          tasksid: 0,
+        };
+        newSubTask.title = sub;
         newSubTask.boardid = this.localVersion.boardid;
         newSubTask.tasksid = this.localVersion.id;
-        return newSubTask;
+        array.push(newSubTask);
       });
-      this.localVersion.subtasks = subtasksArray;
+      // console.log("subtasksArray", array);
+      this.localVersion.subtasks = array;
+      // console.log("inputTwo", inputTwo);
+      let difference = inputTwo.filter((item) => {
+        return !input.includes(item);
+      });
+      // console.log("difference", difference);
+      this.deleteArray = difference;
     },
     async saveChanges() {
+      // ORIGINAL SAVE CHANGES
       this.editLoading = true;
       let taskUpdateBody = {};
       taskUpdateBody.title = this.localVersion.title;
@@ -131,8 +148,13 @@ export default {
         "TasksModule/postMultipleSubs",
         this.localVersion.subtasks
       );
+      await this.$store.dispatch(
+        "TasksModule/deleteSubtasks",
+        this.deleteArray
+      );
       this.editLoading = false;
       this.$store.dispatch("TasksModule/turnFunctionalityOff", "editTask");
+      this.$store.dispatch("TasksModlue/fetchTasks");
     },
   },
 };

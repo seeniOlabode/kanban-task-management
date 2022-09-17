@@ -77,15 +77,15 @@ export default {
     this.savedVersion = this.displayedBoard.name;
   },
   methods: {
-    closeEditTask() {
-      this.$store.dispatch("TasksModule/turnFunctionalityOff", "editTask");
+    closeEditBoard() {
+      this.$store.dispatch("TasksModule/turnFunctionalityOff", "editBoard");
       this.editLoading = false;
     },
     async saveChanges() {
       this.editLoading = true;
       await this.$store.dispatch("TasksModule/updateBoard", this.localVersion);
       this.editLoading = false;
-      this.$store.dispatch("TasksModule/turnFunctionalityOff");
+      this.$store.dispatch("TasksModule/turnFunctionalityOff", "editBoard");
     },
   },
 };

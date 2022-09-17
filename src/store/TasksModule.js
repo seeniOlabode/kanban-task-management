@@ -117,17 +117,20 @@ export const actions = {
     await TasksService.postTask(payload);
     dispatch("fetchTasks");
   },
-  async updateTask({ dispatch }, payload) {
+  async updateTask({ state }, payload) {
     await TasksService.updateTask(payload);
-    dispatch("fetchTasks");
+    // dispatch("fetchTasks");
+    state;
   },
-  async postMultipleSubs({ dispatch }, payload) {
+  async postMultipleSubs({ state }, payload) {
+    // console.log("module", payload);
     if (payload.length >= 1) {
       payload.forEach(async (sub) => {
+        // console.log("addsub", sub);
         await TasksService.addSubTask(sub);
       });
     }
-    dispatch("fetchTasks");
+    state;
   },
   async deleteTask({ dispatch, state }) {
     let deleteTaskId = state.displayedTask.id;
@@ -137,6 +140,31 @@ export const actions = {
   async updateBoard({ dispatch, state }, payload) {
     let id = state.displayedBoard.id;
     await TasksService.updateBoard(id, payload);
+    dispatch("fetchTasks");
+  },
+  async deleteSubtasks({ dispatch, state }, payload) {
+    // console.log("we here", payload);
+    let existingArray = [];
+    state.displayedTask.subtasks.forEach((sub) => {
+      existingArray.push(sub);
+    });
+    let deleteArray = payload.filter((sub) => {
+      return !existingArray.includes(sub);
+    });
+    function getEntryId(entry) {
+      // console.log(state.displayedTask.subtasks);
+      let entryId = state.displayedTask.subtasks.reduce((idg, sub) => {
+        if (sub.title === entry) {
+          return (idg = sub.id);
+        }
+      }, 0);
+      return entryId;
+    }
+    // console.log("delete", deleteArray);
+    deleteArray.forEach(async (del) => {
+      let id = getEntryId(del);
+      await TasksService.deleteSub(id);
+    });
     dispatch("fetchTasks");
   },
 };

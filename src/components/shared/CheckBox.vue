@@ -22,6 +22,7 @@
         'ml-4',
         'text-kanban-white',
         'cursor-pointer',
+        'w-full',
         { checkedLabel: localValue },
       ]"
       :for="checkId"
@@ -63,7 +64,7 @@ export default {
     };
   },
   mounted() {
-    // this.localValue = this.modelValue;
+    this.localValue = this.initialValue;
   },
   methods: {
     emitValue($event) {
