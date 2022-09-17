@@ -132,7 +132,7 @@ export default {
         this.localVersion.subtasks
       );
       this.editLoading = false;
-      this.$store.dispatch("TasksModule/turnFunctionalityOff");
+      this.$store.dispatch("TasksModule/turnFunctionalityOff", "editTask");
     },
   },
 };

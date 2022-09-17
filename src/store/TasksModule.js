@@ -11,6 +11,7 @@ export const state = {
     deleteBoard: false,
     editTask: false,
     deleteTask: false,
+    editBoard: false,
   },
   displayedTask: { default: true },
 };
