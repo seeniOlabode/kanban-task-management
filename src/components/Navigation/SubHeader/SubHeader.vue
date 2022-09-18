@@ -21,8 +21,9 @@
         />
       </button>
     </div>
-    <div class="flex items-center">
+    <div v-if="displayedBoardExists" class="flex items-center">
       <add-button
+        :disabled="!displayedBoardExists"
         @click="$store.dispatch('TasksModule/turnFunctionalityOn', 'addTask')"
       />
       <sub-header-settings />
@@ -61,6 +62,13 @@ export default {
       } else {
         return "Pick a Board";
       }
+    },
+    displayedBoardExists() {
+      let output = false;
+      if (!("default" in this.displayedBoard)) {
+        output = true;
+      }
+      return output;
     },
   },
   methods: {

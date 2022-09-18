@@ -79,11 +79,15 @@ export const actions = {
       if (formerBoard) {
         commit("setDisplayedBoard", formerBoard.id);
       } else {
-        let firstBoard = response.data[0].id;
-        commit("setDisplayedBoard", firstBoard);
+        if (response.data[0].id != undefined) {
+          let firstBoard = response.data[0].id;
+          commit("setDisplayedBoard", firstBoard);
+        } else {
+          commit("setDisplayedBoard", { default: true });
+        }
       }
     } else {
-      commit("setBoardsFetched", false);
+      commit("setBoardsFetched", { default: true });
       return "";
     }
   },
