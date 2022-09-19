@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full rounded bg-kanban-very-dark-grey p-3 flex items-center select-holder cursor-pointer"
+    class="w-full rounded bg-kanban-light-grey dark:bg-kanban-very-dark-grey p-3 flex items-center select-holder cursor-pointer"
   >
     <div class="checkbox-container">
       <label :for="checkId" class="switch flex items-center justify-center">
@@ -20,7 +20,8 @@
         'font-bold',
         'labelText',
         'ml-4',
-        'text-kanban-white',
+        'dark:text-kanban-white',
+        'text-kanban-black',
         'cursor-pointer',
         'w-full',
         { checkedLabel: localValue },

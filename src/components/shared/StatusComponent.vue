@@ -21,8 +21,10 @@
       ]"
       @click="toggleOptions()"
     >
-      <div class="font-medium text-sm">{{ selectedOption }}</div>
-      <button :disabled="disabledValue" @click="toggleOptions()">
+      <div class="font-medium text-sm dark:text-kanban-white text-kanban-black">
+        {{ selectedOption }}
+      </div>
+      <button :disabled="disabledValue">
         <img src="@/assets/icon-chevron-down.svg" alt="" />
       </button>
     </div>
@@ -32,7 +34,7 @@
         <li
           v-for="option in options"
           :key="option"
-          class="cursor-pointer text-sm dark:text-kanban-medium-grey mt-2"
+          class="cursor-pointer text-sm dark:text-kanban-white mt-2 text-kanban-medium-grey"
           @click="select(option)"
         >
           {{ option }}
@@ -124,7 +126,7 @@ export default {
 }
 
 .select-options {
-  @apply bg-kanban-very-dark-grey mt-2 rounded-lg p-4;
+  @apply dark:bg-kanban-very-dark-grey bg-kanban-white text-kanban-medium-grey mt-2 rounded-lg p-4;
 }
 
 .focus {

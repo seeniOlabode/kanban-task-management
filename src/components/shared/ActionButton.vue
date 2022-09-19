@@ -10,6 +10,8 @@
       'font-bold',
       'text-sm',
       { danger: dangerButton },
+      'dark:text-kanban-white',
+      'text-kanban-white',
     ]"
     @click="$emit('buttonClicked', true)"
   >

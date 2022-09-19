@@ -88,10 +88,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .input-element {
   background: none;
-  @apply border border-kanban-lines-dark;
+  @apply border dark:border-kanban-lines-dark border-kanban-lines-light;
 }
 
 .input-element:focus {

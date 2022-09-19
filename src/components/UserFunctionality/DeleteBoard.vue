@@ -19,7 +19,7 @@
           >Delete</action-button
         >
         <action-button
-          class="bg-kanban-white text-kanban-main-purple"
+          class="dark:bg-kanban-white text-kanban-main-purple dark:text-kanban-main-purple cancel-button"
           :danger-button="false"
           @click="closeDeleteBoard()"
           >Cancel</action-button
@@ -67,4 +67,8 @@ export default {
 /* .spinner {
   border-color: #635fc7 #0000;
 } */
+
+.cancel-button {
+  background: rgba(99, 95, 199, 0.1);
+}
 </style>

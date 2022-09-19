@@ -9,12 +9,14 @@
         <settings />
       </div>
 
-      <p class="dark:text-kanban-medium-grey mt-6">
+      <p class="text-kanban-medium-grey mt-6">
         {{ displayedTask.description }}
       </p>
 
       <div class="mt-6">
-        <h6 class="dark:text-kanban-white font-bold text-sm">
+        <h6
+          class="dark:text-kanban-white text-kanban-medium-grey font-bold text-sm"
+        >
           Subtasks ({{ completedTasksString }})
         </h6>
 

@@ -5,12 +5,11 @@
       >{{ label }}</label
     >
     <div
-      id="input-container"
       :class="[
-        'input-element',
         'w-full',
         'mt-2',
         'rounded',
+        'input-container',
         { error: falseValue },
       ]"
     >
@@ -81,8 +80,8 @@ export default {
 </script>
 
 <style scoped>
-#input-container {
-  @apply dark:border-kanban-lines-dark border flex relative;
+.input-container {
+  @apply dark:border-kanban-lines-dark border-kanban-lines-light border flex relative;
 }
 
 .input-element {

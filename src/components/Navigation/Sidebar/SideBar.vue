@@ -4,6 +4,7 @@
     :class="[
       'sm:static',
       'sm:w-72',
+      'side-bar-div',
       { 'sm:h-full': !nav.desktopNavIsOpen },
       { 'border-r': !nav.desktopNavIsOpen },
       { 'border-r-kanban-lines-dark': !nav.desktopNavIsOpen && darkmode },
@@ -71,5 +72,9 @@ export default {
 
 #logo.light-mode > img.light {
   display: none;
+}
+
+.side-bar-div {
+  /* overflow: hidden; */
 }
 </style>
