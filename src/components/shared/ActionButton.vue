@@ -9,6 +9,7 @@
       'w-full',
       'font-bold',
       'text-sm',
+      'cursor-pointer',
       { danger: dangerButton },
       'dark:text-kanban-white',
       'text-kanban-white',
