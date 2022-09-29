@@ -20,3 +20,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#app {
+  height: auto;
+  width: auto;
+}
+</style>

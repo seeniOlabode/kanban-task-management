@@ -1,15 +1,15 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import BoardView from "../views/BoardView.vue";
-import LandingPage from "../views/LandingView.vue";
+// import LandingPage from "../views/LandingView.vue";
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "BoardHome",
+  //   component: LandingPage,
+  // },
   {
     path: "/",
-    name: "BoardHome",
-    component: LandingPage,
-  },
-  {
-    path: "/app",
     name: "BoardView",
     component: BoardView,
     // children: [{ path: "task", name: "task", component: SingleTaskView }],

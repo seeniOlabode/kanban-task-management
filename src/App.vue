@@ -1,6 +1,5 @@
 <template>
   <main-nav
-    v-if="!($route.path === '/')"
     :class="[
       'h-16',
       'flex',
